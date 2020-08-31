@@ -10,8 +10,9 @@ public class Main {
             displayBoard(board);
 
             char currentPlayer = 'X';
+            int round = 0;
 
-            while (!checkWinner(board, currentPlayer)) {
+            while (!checkWinner(board, currentPlayer) && round < 9) {
                 if (currentPlayer != 'O') currentPlayer = 'O';
                 else currentPlayer = 'X';
 
@@ -29,10 +30,12 @@ public class Main {
 
                 displayBoard(board);
 
+                round += 1;
             }
             System.out.println();
-            System.out.println("Congratulations " + currentPlayer + ", you win!");
-            System.out.println("Do you wish to play again? (true/false): ");
+            if (round == 9) System.out.println("Seems like nobody wins this time...");
+            else System.out.println("Congratulations " + currentPlayer + ", you win!");
+            System.out.print("Do you wish to play again? (true/false): ");
             Scanner decision = new Scanner(System.in);
             playAgain = decision.nextBoolean();
         }
@@ -49,7 +52,7 @@ public class Main {
                 || (board[0] == player && board[3] == player && board[6] == player)
                 || (board[1] == player && board[4] == player && board[7] == player)
                 || (board[2] == player && board[5] == player && board[8] == player);
-    }
+            }
 
     private static void displayBoard(char[] board) {
         System.out.println();
