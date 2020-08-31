@@ -1,10 +1,12 @@
+import java.util.Objects;
 import java.util.Scanner;
+import java.lang.String;
 
 public class Main {
 
     public static void main(String[] args) {
-        boolean playAgain = true;
-        while (playAgain) {
+
+        do {
 
             char[] board = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
             displayBoard(board);
@@ -13,6 +15,7 @@ public class Main {
             int round = 0;
 
             while (!checkWinner(board, currentPlayer) && round < 9) {
+
                 if (currentPlayer != 'O') currentPlayer = 'O';
                 else currentPlayer = 'X';
 
@@ -35,11 +38,22 @@ public class Main {
             System.out.println();
             if (round == 9) System.out.println("Seems like nobody wins this time...");
             else System.out.println("Congratulations " + currentPlayer + ", you win!");
-            System.out.print("Do you wish to play again? (true/false): ");
-            Scanner decision = new Scanner(System.in);
-            playAgain = decision.nextBoolean();
-        }
 
+
+        }
+        while (doYouWantToPlayAgain().equals("y"));
+
+    }
+
+    public static String doYouWantToPlayAgain() {
+        String playAgain;
+        do {
+            System.out.print("Do you wish to play again? (y/n): ");
+            Scanner decision = new Scanner(System.in);
+            playAgain = decision.nextLine();
+        }
+        while (!playAgain.equals("y") && !playAgain.equals("n"));
+        return playAgain;
     }
 
 
