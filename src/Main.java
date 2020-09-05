@@ -20,14 +20,18 @@ public class Main {
                 Scanner fieldNumber = new Scanner(System.in);
                 System.out.println();
                 System.out.print("Hello " + currentPlayer + ", it is time to make your move! Choose 1-9: ");
-                int chosenFieldNumber = fieldNumber.nextInt();
+                String chosenFieldNumber = fieldNumber.nextLine();
 
-                while (chosenFieldNumber < 1 || chosenFieldNumber > 9 || board[chosenFieldNumber - 1] != ' ') {
-                    System.out.print("You have entered invalid position! Choose another one: ");
-                    chosenFieldNumber = fieldNumber.nextInt();
+                while (!chosenFieldNumber.equals("1") && !chosenFieldNumber.equals("2")
+                        && !chosenFieldNumber.equals("3") && !chosenFieldNumber.equals("4")
+                        && !chosenFieldNumber.equals("5") && !chosenFieldNumber.equals("6")
+                        && !chosenFieldNumber.equals("7") && !chosenFieldNumber.equals("8")
+                        && !chosenFieldNumber.equals("9") || board[Integer.parseInt(chosenFieldNumber) - 1] != ' ') {
+                    System.out.print("You have entered invalid position! Choose another one: (1-9)");
+                    chosenFieldNumber = fieldNumber.nextLine();
                 }
 
-                board[chosenFieldNumber - 1] = currentPlayer;
+                board[Integer.parseInt(chosenFieldNumber) - 1] = currentPlayer;
 
                 displayBoard(board);
 
