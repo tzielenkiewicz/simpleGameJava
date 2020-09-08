@@ -4,6 +4,15 @@ import java.lang.String;
 public class Main {
 
     public static void main(String[] args) {
+        String answer;
+        Scanner initialQuestion = new Scanner(System.in);
+        do {
+            System.out.print("Do you want to play with computer ('c') or with a partner ('p')?: ");
+            answer = initialQuestion.nextLine();
+        }
+        while (!answer.equalsIgnoreCase("c") && !answer.equalsIgnoreCase("p"));
+        System.out.println(answer);
+
 
         do {
 
