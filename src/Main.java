@@ -43,11 +43,11 @@ public class Main {
 
 
         }
-        while (doYouWantToPlayAgain().equals("y"));
+        while (doYouWantToPlayAgain().equalsIgnoreCase("y"));
 
     }
 
-    private static char switchPlayer(char currentPlayer) {
+    public static char switchPlayer(char currentPlayer) {
         if (currentPlayer != 'O') currentPlayer = 'O';
         else currentPlayer = 'X';
         return currentPlayer;
@@ -55,7 +55,7 @@ public class Main {
     }
 
 
-    private static void displayBoard(char[] board) {
+    public static void displayBoard(char[] board) {
         System.out.println();
         System.out.println(" " + board[0] + " | " + board[1] + " | " + board[2] + "     1 | 2 | 3");
         System.out.println("-----------");
@@ -64,17 +64,17 @@ public class Main {
         System.out.println(" " + board[6] + " | " + board[7] + " | " + board[8] + "     7 | 8 | 9");
     }
 
-    private static String doYouWantToPlayAgain() {
+    public static String doYouWantToPlayAgain() {
         String playAgain;
         do {
             System.out.print("Do you wish to play again? (y/n): ");
             Scanner decision = new Scanner(System.in);
             playAgain = decision.nextLine();
         }
-        while (!playAgain.equals("y") && !playAgain.equals("n"));
+        while (!playAgain.equalsIgnoreCase("y") && !playAgain.equalsIgnoreCase("n"));
         return playAgain;
     }
-    private static boolean checkWinner(char[] board, char player) {
+    public static boolean checkWinner(char[] board, char player) {
         return (board[0] == player && board[1] == player && board[2] == player)
                 || (board[3] == player && board[4] == player && board[5] == player)
                 || (board[6] == player && board[7] == player && board[8] == player)
