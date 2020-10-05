@@ -80,12 +80,7 @@ public class Main {
                      else {
                         System.out.println("Let me think...");
                         Thread.sleep(2000);
-                        for (int i = 0; i < 9; i++) {
-                            if (board[i] == ' ') {
-                                board[i] = currentPlayer;
-                                break;
-                            }
-                        }
+                        protection(board, currentPlayer);
                         displayBoard(board);
 
                         round += 1;
@@ -101,6 +96,80 @@ public class Main {
         while (doYouWantToPlayAgain().equalsIgnoreCase("y"));
 
     }
+
+    private static void protection(char[] board, char currentPlayer) {
+        boolean checkMove = false;
+        for (int i=0; i<7; i=i+3) {
+            if (board[i] == 'X' && board[i+1] == 'X' && board[i+2] == ' ') {
+                board[i+2] = currentPlayer;
+                checkMove = true;
+                break;
+            }
+            else if (board[i] == ' ' && board[i+1] == 'X' && board[i+2] == 'X') {
+                board[i] = currentPlayer;
+                checkMove = true;
+                break;
+            }
+            else if (board[i] == 'X' && board[i+1] == ' ' && board[i+2] == 'X') {
+                board[i+1] = currentPlayer;
+                checkMove = true;
+                break;
+            }
+        }
+        if (!checkMove) {
+            for (int i = 0; i < 3; i++) {
+                if (board[i] == 'X' && board[i+3] == 'X' && board[i+6] == ' ') {
+                    board[i+6] = currentPlayer;
+                    checkMove = true;
+                    break;
+                }
+                if (board[i] == ' ' && board[i+3] == 'X' && board[i+6] == 'X') {
+                    board[i] = currentPlayer;
+                    checkMove = true;
+                    break;
+                }
+                if (board[i] == 'X' && board[i+3] == ' ' && board[i+6] == 'X') {
+                    board[i+3] = currentPlayer;
+                    checkMove = true;
+                    break;
+                }
+            }
+        }
+
+        if (!checkMove) {
+            if (board[0] == ' ' && board[4] == 'X' && board [8] == 'X') {
+                board[0] = currentPlayer;
+                checkMove = true;
+            }
+            else if ((board[0] == 'X' && board[4] == ' ' && board [8] == 'X')||
+                    (board[2] == 'X' && board[4] == ' ' && board [6] == 'X')) {
+                board[4] = currentPlayer;
+                checkMove = true;
+            }
+            else if (board[0] == 'X' && board[4] == 'X' && board [8] == ' ') {
+                board[8] = currentPlayer;
+                checkMove = true;
+            }
+            else if (board[6] == ' ' && board[4] == 'X' && board [2] == 'X') {
+                board[6] = currentPlayer;
+                checkMove = true;
+            }
+            else if (board[6] == 'X' && board[4] == 'X' && board [2] == ' ') {
+                board[2] = currentPlayer;
+                checkMove = true;
+            }
+        }
+
+            if (!checkMove) {
+                for (int i = 0; i < 9; i++) {
+                    if (board[i] == ' ') {
+                        board[i] = currentPlayer;
+                        break;
+                    }
+                }
+            }
+        }
+
 
     public static char switchPlayer(char currentPlayer) {
         if (currentPlayer != 'O') currentPlayer = 'O';
