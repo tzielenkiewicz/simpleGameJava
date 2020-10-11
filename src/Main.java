@@ -80,7 +80,11 @@ public class Main {
                      else {
                         System.out.println("Let me think...");
                         Thread.sleep(2000);
-                        protection(board, currentPlayer);
+                        if (round == 1 && board[4] == ' ') board[4] = currentPlayer;
+                        else {
+                            if (!finalAttack(board, currentPlayer))
+                                protection(board, currentPlayer);
+                        }
                         displayBoard(board);
 
                         round += 1;
@@ -95,6 +99,83 @@ public class Main {
         }
         while (doYouWantToPlayAgain().equalsIgnoreCase("y"));
 
+    }
+
+    private static boolean finalAttack(char[] board, char currentPlayer) {
+        boolean checkMove = false;
+        for (int i=0; i<7; i=i+3) {
+            if (board[i] == currentPlayer && board[i+1] == currentPlayer &&
+                    board[i+2] == ' ') {
+                board[i+2] = currentPlayer;
+                checkMove = true;
+                break;
+            }
+            else if (board[i] == ' ' && board[i+1] == currentPlayer &&
+                    board[i+2] == currentPlayer) {
+                board[i] = currentPlayer;
+                checkMove = true;
+                break;
+            }
+            else if (board[i] == currentPlayer && board[i+1] == ' ' &&
+                    board[i+2] == currentPlayer) {
+                board[i+1] = currentPlayer;
+                checkMove = true;
+                break;
+            }
+        }
+        if (!checkMove) {
+            for (int i = 0; i < 3; i++) {
+                if (board[i] == currentPlayer && board[i+3] == currentPlayer &&
+                        board[i+6] == ' ') {
+                    board[i+6] = currentPlayer;
+                    checkMove = true;
+                    break;
+                }
+                if (board[i] == ' ' && board[i+3] == currentPlayer &&
+                        board[i+6] == currentPlayer) {
+                    board[i] = currentPlayer;
+                    checkMove = true;
+                    break;
+                }
+                if (board[i] == currentPlayer && board[i+3] == ' ' &&
+                        board[i+6] == currentPlayer) {
+                    board[i+3] = currentPlayer;
+                    checkMove = true;
+                    break;
+                }
+            }
+        }
+
+        if (!checkMove) {
+            if (board[0] == ' ' && board[4] == currentPlayer &&
+                    board [8] == currentPlayer) {
+                board[0] = currentPlayer;
+                checkMove = true;
+            }
+            else if ((board[0] == currentPlayer && board[4] == ' ' &&
+                    board [8] == currentPlayer)||
+                    (board[2] == currentPlayer && board[4] == ' ' &&
+                            board [6] == currentPlayer)) {
+                board[4] = currentPlayer;
+                checkMove = true;
+            }
+            else if (board[0] == currentPlayer && board[4] == currentPlayer &&
+                    board [8] == ' ') {
+                board[8] = currentPlayer;
+                checkMove = true;
+            }
+            else if (board[6] == ' ' && board[4] == currentPlayer &&
+                    board [2] == currentPlayer) {
+                board[6] = currentPlayer;
+                checkMove = true;
+            }
+            else if (board[6] == currentPlayer && board[4] == currentPlayer &&
+                    board [2] == ' ') {
+                board[2] = currentPlayer;
+                checkMove = true;
+            }
+        }
+        return checkMove;
     }
 
     private static void protection(char[] board, char currentPlayer) {
